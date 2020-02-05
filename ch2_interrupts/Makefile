@@ -1,6 +1,7 @@
 # Makefile
 
 ARDUINO_AVR=/opt/arduino-1.8.8/hardware/tools/avr
+ARDUINO_AVR=/usr
 
 # ENVIRONMENT 
 CC=$(ARDUINO_AVR)/bin/avr-gcc
