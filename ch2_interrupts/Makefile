@@ -14,7 +14,7 @@ RM=/bin/rm -f
 baud=115200
 avrType=atmega328p
 avrFreq=16000000UL
-avrConfFile=$(ARDUINO_AVR)/etc/avrdude.conf
+avrConfFile=/etc/avrdude.conf
 programmerDev=/dev/ttyACM1
 programmerType=arduino
 
