@@ -5,7 +5,7 @@ ARDUINO_AVR=/usr
 
 # ENVIRONMENT 
 CC=$(ARDUINO_AVR)/bin/avr-gcc
-COBJDUMP=$(ARDUINO_AVR)/bin/avr-objcopy
+COBJDUMP=$(ARDUINO_AVR)/bin/avr-objdump
 AR=$(ARDUINO_AVR)/bin/avr-ar
 AVRDUDE=$(ARDUINO_AVR)/bin/avrdude
 RM=/bin/rm -f
@@ -15,7 +15,7 @@ baud=115200
 avrType=atmega328p
 avrFreq=16000000UL
 avrConfFile=/etc/avrdude.conf
-programmerDev=/dev/ttyACM1
+programmerDev=/dev/ttyACM0
 programmerType=arduino
 
 # COMPILE FLAGS
@@ -28,12 +28,13 @@ LDFLAGS=-flto -fuse-linker-plugin -Wl,--gc-sections -mmcu=atmega328p  -lm
 # ARCHIVER FLAGS
 ARFLAGS=-rcs
 
+# OBJDUMP FLAGS
+OBJDUMPFLAGS=-D
+
 # TARGETS
-#hexes=$(patsubst %.c,%.hex,$(wildcard *.c))
 binaries=$(patsubst %.c,%.bin,$(wildcard *.c))
 objects=$(patsubst %.c,%.o,$(wildcard *.c))
 sources = $(wildcard *.c)
-
 
 
 all: $(binaries)
@@ -53,8 +54,6 @@ all: $(binaries)
 %.bin: %.o
 	$(CC) $(LDFLAGS) -o $@ $^
 
-
-
 .PHONY: show flash clean
 
 show:
@@ -63,10 +62,14 @@ show:
 	echo $(binaries)
 	echo $(hexes)
 
+od: $(t)
+	$(COBJDUMP) $(OBJDUMPFLAGS) $(t)
+
 flash: $(t)
 	$(AVRDUDE) -p$(avrType) -C$(avrConfFile) -c$(programmerType) -P$(programmerDev) -b$(baud) -v -U flash:w:$(t)
 
 clean:
 	$(RM) $(objects) $(FOREIGN_TARGETS) $(binaries) $(hexes)
 
+# uncomment the line below to keep the object files
 #.SECONDARY: $(objects)
