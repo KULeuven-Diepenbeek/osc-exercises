@@ -21,9 +21,17 @@ T_PCB * sort_tasks_on_arrival(T_PCB * head);
 // main function
 int main(void) {
   int time_quantum;
+  
+  // serial list of newly arrived tasks
+  // used to enforce last-come, first-served
   T_PCB * new_queue = NULL;
+  // circular list of active tasks
+  // used to implement Round-Robin
   T_PCB * ready_queue = NULL;
+  // extra state needed to switch tasks 
+  // from new_queue to ready_queue when they're started
   T_PCB * ready_queue_prev = NULL;
+  
   FILE *fh_outputfile;
 
   // show an emtpy list
@@ -42,6 +50,12 @@ int main(void) {
   show_tasks_lin(new_queue);
 
   // open the OUTPUT file and validate the return value
+  // TODO
+  
+  // the new_queue now contains tasks in their arrival order. 
+  // This is a linear linked list used to implement the last-come, first-served logic.
+  // When a task from the new_queue is scheduled, it is afterwards moved to the ready_queue.
+  // This ready_queue is a circular linked list, used to implement the fair round-robin logic.
 
 /* MODIFY BELOW HERE --------------------------------------------------------*/
 
@@ -60,14 +74,13 @@ int main(void) {
  */
 
 T_PCB * sort_tasks_on_arrival(T_PCB * head) {
-
-  // look for inspiration in task 2 !!
+  // look for inspiration in assignment 2 !!
   return head;
 }
 
 
 /**
- * @brief      Shows the tasks in non-circular list
+ * @brief      Shows the tasks in a non-circular list
  *
  * @param      head  The head of the non-circular list
  */
@@ -93,7 +106,7 @@ void show_tasks_lin(T_PCB * head) {
 }
 
 /**
- * @brief      Shows the tasks in circular list
+ * @brief      Shows the tasks in a circular list
  *
  * @param      head  An entry into the circular list
  */
@@ -133,12 +146,12 @@ void show_tasks_circ(T_PCB * head) {
  */
 T_PCB * read_tasks(void) {
 
-  // open the INPUT file and validate the return value
+  // open the INPUT "tasks.txt" file and validate the return value
 
   // the first line determines the number of jobs in the file
 
   // read all the jobs and create a PCB for each
-  // All PCB's end up in a linear linked list
+  // All PCB's end up in a -linear- linked list
 
   // return the head to the newly created linear linked list
 }
