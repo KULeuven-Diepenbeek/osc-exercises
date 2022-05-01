@@ -74,7 +74,7 @@ int main(void) {
  */
 
 T_PCB * sort_tasks_on_arrival(T_PCB * head) {
-  // look for inspiration in assignment 2 !!
+  // look for inspiration in lab exercises like "The Ancient Library" !!
   return head;
 }
 
