@@ -1,9 +1,7 @@
 // test.cpp
 #include "gtest/gtest.h"
 
-int add(int one, int two) {
-    return one + two;
-}
+#include "somecalculation.h"
 
 TEST(AddTest, ShouldAddOneAndTo) {
     EXPECT_EQ(add(1, 2), 5);
